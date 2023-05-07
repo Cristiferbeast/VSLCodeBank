@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.IO;
 
 
@@ -30,7 +30,10 @@ namespace VSLSignalisCodeBank
             return SURStexture;
         }
 
-        public static GameObject SUMAModelCall(string mainFileBranch, string modelName)
+    }
+    public class SUMA
+    {
+        public static GameObject ModelCall(string mainFileBranch, string modelName)
         {
             string customreplika = Path.Combine(mainFileBranch, modelName);
             if (!File.Exists(customreplika))
@@ -46,7 +49,7 @@ namespace VSLSignalisCodeBank
             }
             return model;
         }
-        public static MeshRenderer SUMAModelCall (GameObject model)
+        public static MeshRenderer ModelCall(GameObject model)
         {
             MeshRenderer renderer = new MeshRenderer();
             renderer = model.GetComponent<MeshRenderer>();
@@ -57,6 +60,7 @@ namespace VSLSignalisCodeBank
             }
             return renderer;
         }
-           
-}
+        //SumaInsatiate
+        //SumaOutfit
+    }
 }
