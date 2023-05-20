@@ -45,7 +45,7 @@ namespace VSLSignalisCodeBank
                 return false;
             }
         }
-        public void CameraToggle(GameObject ModdedCam, GameObject CharRoot)
+        public bool CameraToggle(GameObject ModdedCam, GameObject CharRoot)
         {
             ModdedCam.transform.parent = CharRoot.transform;
             MelonLoader.MelonLogger.Msg("Modded Camera Created");
@@ -55,6 +55,7 @@ namespace VSLSignalisCodeBank
             GameObject VHS = ModdedCam.transform.Find("VHS UI").gameObject;
             UnityEngine.Camera VHSComponent = VHS.GetComponent<UnityEngine.Camera>();
             VHSComponent.orthographic = false;
+            return true;
         }
     }
     public class SUMA
