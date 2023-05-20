@@ -29,7 +29,33 @@ namespace VSLSignalisCodeBank
             ImageConversion.LoadImage(SURStexture, imageData);
             return SURStexture;
         }
-
+        public bool CustomCamera(GameObject CharRoot, GameObject MainCamera, Vector3 coords, Quaternion.Euler position)
+        {
+            MainCamera.SetActive(false);
+            GameObject ModdedCam = CharRoot.transform.Find("ModdedCam").gameObject;
+            if ModdedCam == null
+            {
+                return false;
+            }
+            else 
+            {   
+                ModdedCam.SetActive(true);
+                ModdedCam.transform.localPosition = coords;
+                ModdedCam.transform.localRotation = position;
+                return false;
+            }
+        }
+        public void CameraToggle(GameObject ModdedCam, GameObject CharRoot)
+        {
+            ModdedCam.transform.parent = CharRoot.transform;
+            MelonLoader.MelonLogger.Msg("Modded Camera Created");
+            ModdedCam.GetComponent<AngledCamControl>().enabled = false;
+            UnityEngine.Camera cameraComponent = ModdedCam.GetComponent<UnityEngine.Camera>();
+            cameraComponent.orthographic = false;
+            GameObject VHS = ModdedCam.transform.Find("VHS UI").gameObject;
+            UnityEngine.Camera VHSComponent = VHS.GetComponent<UnityEngine.Camera>();
+            VHSComponent.orthographic = false;
+        }
     }
     public class SUMA
     {
