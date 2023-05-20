@@ -33,10 +33,7 @@ namespace VSLSignalisCodeBank
         {
             MainCamera.SetActive(false);
             GameObject ModdedCam = CharRoot.transform.Find("ModdedCam").gameObject;
-            if ModdedCam == null
-            {
-                return false;
-            }
+            if ModdedCam == null { return false; }
             else 
             {   
                 ModdedCam.SetActive(true);
