@@ -29,13 +29,13 @@ namespace VSLSignalisCodeBank
             ImageConversion.LoadImage(SURStexture, imageData);
             return SURStexture;
         }
-        public bool CustomCamera(GameObject CharRoot, GameObject MainCamera, Vector3 coords, Quaternion.Euler position)
+        public bool CustomCamera(GameObject CharRoot, GameObject MainCamera, Vector3 coords, Quaternion position)
         {
             MainCamera.SetActive(false);
             GameObject ModdedCam = CharRoot.transform.Find("ModdedCam").gameObject;
-            if ModdedCam == null { return false; }
-            else 
-            {   
+            if (ModdedCam == null) { return false; }
+            else
+            {
                 ModdedCam.SetActive(true);
                 ModdedCam.transform.localPosition = coords;
                 ModdedCam.transform.localRotation = position;
