@@ -29,23 +29,14 @@ namespace VSLSignalisCodeBank
             ImageConversion.LoadImage(SURStexture, imageData);
             return SURStexture;
         }
-        public void CustomCamera(GameObject MainCamera, GameObject CharRoot, Vector3 coords, Quaternion position)
+         public void CustomCamera(GameObject MainCamera, GameObject CharRoot, Vector3 coords, Quaternion position)
         {
-            if (MainCamera == null) { ErrorNF("MainCamera"); }
-            if (CharRoot == null) { ErrorNF("CharRoot"); }
-            if (coords == null) { ErrorNF("coords"); }
-            if (position == null) { ErrorNF("posiiton"); }
             CameraToggle(MainCamera, CharRoot);
-            MainCamera.SetActive(false);
-            GameObject ModdedCam = CharRoot.transform.Find("ModdedCam").gameObject;
-            ModdedCam.SetActive(true);
-            ModdedCam.transform.localPosition = coords;
-            ModdedCam.transform.localRotation = position;
+            MainCamera.transform.localPosition = coords;
+            MainCamera.transform.localRotation = position;
         }
         public void CameraToggle(GameObject MainCamera, GameObject CharRoot)
         {
-            if (MainCamera == null) { ErrorNF("MainCamera"); }
-            if (CharRoot == null) { ErrorNF("CharRoot"); }
             MainCamera.transform.parent = CharRoot.transform;
             MelonLoader.MelonLogger.Msg("Modded Camera State Enabled");
             MainCamera.GetComponent<AngledCamControl>().enabled = false;
@@ -55,9 +46,18 @@ namespace VSLSignalisCodeBank
             UnityEngine.Camera VHSComponent = VHS.GetComponent<UnityEngine.Camera>();
             VHSComponent.orthographic = false;
         }
-        public void ErrorNF(string Name)
+        public bool GOErrorCatch(string ObjectName, GameObject parent)
         {
-            MelonLoader.MelonLogger.Msg("Error", Name, "Not Found");
+            try
+            {
+                GameObject AngCamRig = parent.transform.Find(ObjectName).gameObject;
+                return false;
+            }
+            catch
+            {
+                MelonLoader.MelonLogger.Msg("Error", ObjectName, "Not Found");
+                return true;
+            }
         }
     }
     public class SUMA
