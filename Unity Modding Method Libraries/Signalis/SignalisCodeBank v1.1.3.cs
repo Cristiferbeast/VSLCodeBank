@@ -29,30 +29,35 @@ namespace VSLSignalisCodeBank
             ImageConversion.LoadImage(SURStexture, imageData);
             return SURStexture;
         }
-        public bool CustomCamera(GameObject CharRoot, GameObject MainCamera, Vector3 coords, Quaternion position)
+        public void CustomCamera(GameObject MainCamera, GameObject CharRoot, Vector3 coords, Quaternion position)
         {
+            if (MainCamera == null) { ErrorNF("MainCamera"); }
+            if (CharRoot == null) { ErrorNF("CharRoot"); }
+            if (coords == null) { ErrorNF("coords"); }
+            if (position == null) { ErrorNF("posiiton"); }
+            CameraToggle(MainCamera, CharRoot);
             MainCamera.SetActive(false);
             GameObject ModdedCam = CharRoot.transform.Find("ModdedCam").gameObject;
-            if (ModdedCam == null) { return false; }
-            else
-            {
-                ModdedCam.SetActive(true);
-                ModdedCam.transform.localPosition = coords;
-                ModdedCam.transform.localRotation = position;
-                return false;
-            }
+            ModdedCam.SetActive(true);
+            ModdedCam.transform.localPosition = coords;
+            ModdedCam.transform.localRotation = position;
         }
-        public bool CameraToggle(GameObject ModdedCam, GameObject CharRoot)
+        public void CameraToggle(GameObject MainCamera, GameObject CharRoot)
         {
-            ModdedCam.transform.parent = CharRoot.transform;
-            MelonLoader.MelonLogger.Msg("Modded Camera Created");
-            ModdedCam.GetComponent<AngledCamControl>().enabled = false;
-            UnityEngine.Camera cameraComponent = ModdedCam.GetComponent<UnityEngine.Camera>();
+            if (MainCamera == null) { ErrorNF("MainCamera"); }
+            if (CharRoot == null) { ErrorNF("CharRoot"); }
+            MainCamera.transform.parent = CharRoot.transform;
+            MelonLoader.MelonLogger.Msg("Modded Camera State Enabled");
+            MainCamera.GetComponent<AngledCamControl>().enabled = false;
+            UnityEngine.Camera cameraComponent = MainCamera.GetComponent<UnityEngine.Camera>();
             cameraComponent.orthographic = false;
-            GameObject VHS = ModdedCam.transform.Find("VHS UI").gameObject;
+            GameObject VHS = MainCamera.transform.Find("VHS UI").gameObject;
             UnityEngine.Camera VHSComponent = VHS.GetComponent<UnityEngine.Camera>();
             VHSComponent.orthographic = false;
-            return true;
+        }
+        public void ErrorNF(string Name)
+        {
+            MelonLoader.MelonLogger.Msg("Error", Name, "Not Found");
         }
     }
     public class SUMA
