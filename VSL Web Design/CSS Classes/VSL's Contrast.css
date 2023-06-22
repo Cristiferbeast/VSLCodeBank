@@ -1,0 +1,55 @@
+.contrast {
+    background-color: #222; color: white;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+.contrast h1 {
+    padding: 10px;
+    background-color: #381509; color: #ffffff;
+    font-family: "Lato", Georgia, 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-align: center;
+}
+.contrast h2 {
+    padding: 10px;
+    background-color: #381509; color: #ffffff;
+    font-family: "Roboto", "Lato", Georgia, 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-align: center;
+}
+.contrast li{
+    list-style-type: square;
+    list-style-position: outside;
+}
+.contrast table{
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.contrast th{
+    background-color: rgb(54, 25, 19);
+}
+
+.contrast td, th {
+  border:1px solid black;
+  text-align: center;
+} 
+
+.contrast a {
+    outline: none;
+    text-decoration: none;
+    display: block;
+    margin-left: 1%;
+    text-align: center;
+    background-color: red;
+    padding: 10px;
+    box-sizing: border-box;
+    width:100%;
+    color: white;
+}
+
+.contrast a:hover{
+    background-color: tomato;
+}
