@@ -1,4 +1,6 @@
+using MelonLoader;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.IO;
 
 
@@ -21,6 +23,17 @@ namespace VSLSignalisCodeBank
                 return null;
             }
         }
+        public bool SURSTextureSet(bool state, string path, GameObject parent)
+        {
+            if (!state)
+            {
+                return false;
+            }
+            Texture2D evaTexture = SignalisCodeBank.SURSImageCall(path);
+            SkinnedMeshRenderer renderer = parent.GetComponent<SkinnedMeshRenderer>();
+            renderer.material.mainTexture = evaTexture;
+            return true;
+        }
         public static Texture2D SURSImageCall(string filename)
         {
             //Used in SURS (Signalis Universal ReSkin Mod)
@@ -29,22 +42,30 @@ namespace VSLSignalisCodeBank
             ImageConversion.LoadImage(SURStexture, imageData);
             return SURStexture;
         }
-         public void CustomCamera(GameObject MainCamera, GameObject CharRoot, Vector3 coords, Quaternion position)
+        public bool CustomCamera(GameObject CharRoot, GameObject MainCamera, Vector3 coords, Quaternion position)
         {
-            CameraToggle(MainCamera, CharRoot);
-            MainCamera.transform.localPosition = coords;
-            MainCamera.transform.localRotation = position;
+            MainCamera.SetActive(false);
+            GameObject ModdedCam = CharRoot.transform.Find("ModdedCam").gameObject;
+            if (ModdedCam == null) { return false; }
+            else
+            {
+                ModdedCam.SetActive(true);
+                ModdedCam.transform.localPosition = coords;
+                ModdedCam.transform.localRotation = position;
+                return false;
+            }
         }
-        public void CameraToggle(GameObject MainCamera, GameObject CharRoot)
+        public bool CameraToggle(GameObject ModdedCam, GameObject CharRoot)
         {
-            MainCamera.transform.parent = CharRoot.transform;
-            MelonLoader.MelonLogger.Msg("Modded Camera State Enabled");
-            MainCamera.GetComponent<AngledCamControl>().enabled = false;
-            UnityEngine.Camera cameraComponent = MainCamera.GetComponent<UnityEngine.Camera>();
+            ModdedCam.transform.parent = CharRoot.transform;
+            MelonLoader.MelonLogger.Msg("Modded Camera Created");
+            ModdedCam.GetComponent<AngledCamControl>().enabled = false;
+            UnityEngine.Camera cameraComponent = ModdedCam.GetComponent<UnityEngine.Camera>();
             cameraComponent.orthographic = false;
-            GameObject VHS = MainCamera.transform.Find("VHS UI").gameObject;
+            GameObject VHS = ModdedCam.transform.Find("VHS UI").gameObject;
             UnityEngine.Camera VHSComponent = VHS.GetComponent<UnityEngine.Camera>();
             VHSComponent.orthographic = false;
+            return true;
         }
         public bool GOErrorCatch(string ObjectName, GameObject parent)
         {
