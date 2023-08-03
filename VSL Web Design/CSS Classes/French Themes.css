@@ -1,0 +1,27 @@
+.french h1{
+    padding: 10px;
+    background-color: #002654;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+.french h2{
+    padding: 10px;
+    background-color: #e5352c;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+.french h3{
+    padding: 10px;
+    background-color: white;
+    color: #e5352c;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+.frenchsidebar{
+    width: 25%; /* Adjust the width as needed */
+    background-color: #002654; /* Sidebar background color */
+    padding: 20px; /* Add padding to the sidebar content */
+    color: white
+}
