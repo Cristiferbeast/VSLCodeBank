@@ -9,6 +9,7 @@ public class InkExternalFunctions
     {
         story.BindExternalFunction("playEmote", (string emoteName) => PlayEmote(emoteName, emoteAnimator));
         story.BindExternalFunction("background", (string backgroundname) => background(backgroundname));
+        story.BindExternalFunction("portraitstate", (bool state) => showportrait(state));
     }
 
     public void Unbind(Story story) 
@@ -34,25 +35,26 @@ public class InkExternalFunctions
     {
         DialogueManager d = DialogueManager.GetInstance();
         GameObject targetObject = d.background;
-        string folderPath = d.backgroundPath;
-        if (targetObject == null)
-        {
+        if (targetObject == null) {
             Debug.LogWarning("Target object not assigned.");
             return;
         }
-        
         SpriteRenderer spriteRenderer = targetObject.GetComponent<SpriteRenderer>();
-        Sprite[] sprites = Resources.LoadAll<Sprite>(folderPath);
-
+        Sprite[] sprites = d.backgroundSprite;
         foreach (Sprite sprite in sprites)
         {
             if (sprite.name == imagename)
             {
                 spriteRenderer.sprite = sprite;
-                break; // Once you've found the sprite, exit the loop
+                break; 
             }
         }
     }
-
-
+    public static void showportrait(bool state){
+        DialogueManager d = DialogueManager.GetInstance();
+        GameObject frame = d.portraitFrame;
+        GameObject portrait = d.portrait;
+        portrait.SetActive(state);
+        frame.SetActive(state);
+    }
 }
