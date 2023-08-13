@@ -17,13 +17,17 @@ The changes in this are minimal due to Dialogue System 8 being built for handlin
 The VN varient of Encrer is far further from the original branch, being far more custom created as System 8 was designed for 2D games not for VNs. To build this the base System example was rebuilt into the Encrer VN System.
 
 ### Encrer VN v1.0
-The first update Encrer has versus System 8 is that it supports up to 6 options as opposed to System 8s, 3 option limit. Encrer also sports a smaller text size which lets it have longer dialogue, this is different from System 8 which prioritizes short dialogue.
-Encrer VN also added a new Font tag this being used to change the size of font. 
+The first update Encrer has versus System 8 is that it supports up to 6 options as opposed to System 8s, 3 option limit. Encrer also sports a smaller text size which lets it have longer dialogue, this is different from System 8 which prioritizes short dialogue. <br>
+Encrer VN also added a new Font tag this being used to change the size of font.  <br>
 Encrer VN has a specified method built for controlling the background of a scene. This method can be added to a Inky project using 
+```
     EXTERNAL background(string)
     ~background("rock")
-This will let one provide a string to the background command to have it change the background.
-Encrer VN also added a similar function to the handling of the portrait tag, replacing the existing handling that existed via System 8. This functionality grants higher freedom and easier access for beginner programmers in changing the portrait without using any code or animation loops.
+```
+This will let one provide a string to the background command to have it change the background. <br>
+Encrer VN also added a similar function to the handling of the portrait tag, replacing the existing handling that existed via System 8. This functionality grants higher freedom and easier access for beginner programmers in changing the portrait without using any code or animation loops. <br>
 Encrer also added another External for handling the portrait, giving users the ability to fully disable it should they want from Inky.
+```
     EXTERNAL showportrait(bool)
     ~showportrait(true)
+```
