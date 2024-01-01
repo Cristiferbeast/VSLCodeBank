@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-
 namespace VSLSignalisCodeBank
 {
     public class SignalisCodeBank
@@ -42,7 +41,7 @@ namespace VSLSignalisCodeBank
             ImageConversion.LoadImage(SURStexture, imageData);
             return SURStexture;
         }
-                public static void CustomCamera(GameObject MainCamera, GameObject CharRoot, Vector3 coords, Quaternion position, bool initialize = false)
+        public static void CustomCamera(GameObject MainCamera, GameObject CharRoot, Vector3 coords, Quaternion position, bool initialize = false)
         {
             CameraToggle(MainCamera, CharRoot, initialize);
             MainCamera.transform.localPosition = coords;
@@ -109,54 +108,47 @@ namespace VSLSignalisCodeBank
                 return false;
             }
         }
-    }
-    public class SUMA
-    {
-        public static GameObject ModelCall(string mainFileBranch, string modelName)
+        public static GameObject ObjectDig(string[] SArray)
         {
-            string customreplika = Path.Combine(mainFileBranch, modelName);
-            if (!File.Exists(customreplika))
-            {
+            GameObject returnvalue; 
+            for(int i, i > SArray.length, i++){
+                if(i == 0){
+                returnvalue = GameObject.Find(SArray[i]);
+                }
+                else{
+                    GameObject tempvalue = returnvalue.transform.Find(SArray[i]).GameObject;
+                    returnvalue = tempvalue;
+                }
+            }
+            return returnvalue;
+        }
+        public static void SUMASpawn(string modelName, Vector3 OffSetCoords, GameObject parent = null){
+            //such that the parent is the object dictating the spawn.
+            GameObject model = ModelCall(modelName);
+            GameObject SpawnedObject = GameObject.Instantiate(model); //spawn in a version of the model
+            SpawnedObject.transform.postion = OffSetCoords;
+            if(parent != null){
+                SpawnedObject.transform.position = parent.transform.position + OffSetCoords;
+                SpawnedObject.transform.rotation = parent.transform.rotation;
+                SpawnedObject.transform.parent = parent.transform;
+        }
+        model = null;
+        }
+        public static GameObject ModelCall(string modelName){
+            if (!File.Exists(modelName)){
                 MelonLoader.MelonLogger.Msg(modelName, " Model Not Found ");
                 return null;
             }
             GameObject model = Resources.Load<GameObject>(modelName);
-            if (model == null)
-            {
+            if (model == null){
                 MelonLoader.MelonLogger.Msg(modelName, " Model Could Not Load ");
                 return null;
             }
-            return model;
-        }
-        public static MeshRenderer ModelCall(GameObject model)
-        {
-            MeshRenderer renderer = new MeshRenderer();
-            renderer = model.GetComponent<MeshRenderer>();
-            if (renderer == null)
-            {
+            if (model.GetComponent<MeshRenderer>(); == null){
                 MelonLoader.MelonLogger.Msg("Render Not Found, Check that File is Proper");
-                return null;
             }
-            return renderer;
-        }
-        public static void Outfit (GameObject parent, GameObject model, float scaleFactor)
-        {
-            //Needs Model to be Insatiated Before Use, Insatatation can be done by SUMA.Spawn or normal Insatiation
-            if (parent == null) { MelonLoader.MelonLogger.Msg("Parent Not Found, Check that File is Proper");}
-            if (model == null) { MelonLoader.MelonLogger.Msg("Model Not Found, Check that File is Proper"); }
-            //Offset Coords are Experimental
-            Vector3 offset = new Vector3(1f, 2f, 3f);
-            model.transform.position = parent.transform.position + offset;
-            model.transform.rotation = parent.transform.rotation;
-            model.transform.localScale *= scaleFactor;
-            model.transform.parent = parent.transform;
-        }
-        public static void Spawn (GameObject model, GameObject parent, Vector3 localposition, Quaternion rotation)
-        {
-            GameObject spawned = GameObject.Instantiate(model);
-            spawned.transform.parent = parent.transform;
-            model.transform.position = parent.transform.position + localposition;
-            model.transform.rotation = rotation;
+            return model; 
         }
     }
 }
+
